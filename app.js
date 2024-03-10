@@ -2,6 +2,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
 
 
 // 2. Aisgnamos los metodos de express a auna variable
@@ -21,7 +22,7 @@ app.use(express.json()); // vamos trabajar con json
 dotenv.config({ path: './env/.env' });
 
 // 9. Seteamos las cookies
-//app.use(cookieParser);
+app.use(cookieParser());
 
 // 10. Llamar al archivo router
 app.use('/', require('./routes/router'))

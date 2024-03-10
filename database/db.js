@@ -18,4 +18,6 @@ conexion.connect((error) => {
     console.log('Conectados a la Base de Datos');
 })
 
-module.exports = conexion; 
+module.exports = conexion;
+
+//----------------------------------------------------------- HASTA AQUI SEGUNDO VIDEO
