@@ -113,14 +113,14 @@ exports.login = async (req, res) => {
                     }
                     //Nombre con el que va aparecer la cookie en el navegador
                     res.cookie('jwt', token, cookiesOptions)
-                    res.render('login', {
+                    res.render('index', {
                         alert: true,
                         alertTitle: "Bienvenido a Ampack",
                         alertMessage: `Hola ${name}`,
                         alertIcon: 'success',
                         showConfirmButton: true,
                         timer: 800,
-                        ruta: 'login'
+                        ruta: 'login' // Este era mi error porque al dejar login en la pate re res.render, no dabe tiempo de que cargara isAuthenticated lo que hacia que user no estuviera definida, es decir cargamos ahora en mensaje en el index y que la ruta nos lleve al login
                     })
                 }
             })
@@ -130,3 +130,47 @@ exports.login = async (req, res) => {
         console.log(error);
     }
 };
+
+// Metodon para saber si el usuario esta autenticado
+exports.isAuthenticated = async (req, res, next) => {
+    if (req.cookies.jwt) {
+        try {
+            const decodificada = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRETO)
+            console.log('Decodificado:', decodificada);
+            console.log('Decodificado:', decodificada.id);
+            // Convertir decodificada.id a un número entero
+            const userId = parseInt(decodificada.id);
+            console.log('User:', userId);
+
+            conexion.query('SELECT * FROM Usuario WHERE id = ?', [userId], (error, results) => {
+                if (!results || results.length === 0) {
+                    console.log('Esta entrando a este if')
+                    return next()
+                }
+                console.log('Results tiene: ' + results[0])
+                req.user = results[0]
+                console.log(req.user.Nombres)
+                return next()
+            })
+        } catch (error) {
+            console.log('El error es ' + error)
+            return next()
+        }
+    } else {
+        res.redirect('/')
+    }
+}
+
+//Cerrar sesion
+exports.logout = (req, res) => {
+    res.clearCookie('jwt');
+    console.log(res.clearCookie('jwt'))
+
+    // Evitar el almacenamiento en caché
+    res.setHeader('Cache-Control', 'no-store, private, must-revalidate, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
+    return res.redirect('/');
+}
+

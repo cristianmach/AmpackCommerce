@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     res.render('index', { alert: false })
 }); // Ruta para el inicio
 
-router.get('/index', (req, res) => {
+router.get('/index', authController.isAuthenticated, (req, res) => {
     res.render('index', { alert: false })
 }); // Ruta para el inicio
 
@@ -18,17 +18,19 @@ router.get('/register', (req, res) => {
     res.render('register', { alert: false })
 }); // Ruta el registro
 
-router.get('/login', (req, res) => {
-    res.render('login', { alert: false })
+router.get('/login', authController.isAuthenticated, (req, res) => {
+    res.render('login', { user: req.user })
 }); // Ruta cuando un usuario inicia session
 
 // Rutas para el metodo del controller (TERCER VIDEO) (Utilizamos .post porque en nuestro form de la vista register tenemos el method="POST")
 router.post('/register', authController.register);
 // (CUARTO VIDEO)
 router.post('/index', authController.login);
-router.post('/login', authController.login);
+router.get('/logout', authController.logout);
 
 module.exports = router // exportar Para que se pueda incluir el archivo router en otros archivos. 
+
+
 
 
 

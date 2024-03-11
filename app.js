@@ -21,11 +21,18 @@ app.use(express.json()); // vamos trabajar con json
 // 8. Seteamos la carpeta para las vriables de entorno 
 dotenv.config({ path: './env/.env' });
 
-// 9. Seteamos las cookies
-app.use(cookieParser());
+//9. para poder trabajar con las cookies
+app.use(cookieParser())
 
 // 10. Llamar al archivo router
 app.use('/', require('./routes/router'))
+
+//Para eliminar el cache y no se pueda volver atras con el boton del back del navegador
+app.use(function (req, res, next) {
+    if (!req.user)
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    next();
+});
 
 
 // 4. Especificamos la ruta raiz. 

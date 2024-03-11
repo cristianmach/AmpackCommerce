@@ -80,24 +80,32 @@
 
                 <ul class="navbar-nav mb-md-0 justify-content-center align-items-center">
                     <li class="dropdown justify-content-center align-items-center">
-                        <a class=" nav-link dropdown me-lg-2 mt-lg-1" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class=" nav-link dropdown me-lg-2 mt-lg-1 " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <i class="bi bi-person m-danger bg-white   rounded-5 p-2 me-1"></i>
+                            <label for="" class="text-white fw-semibold">
+                                Hola
+                                <% if (user) { %>
+                                    <span>
+                                        <%= user.Nombres %>
+                                    </span>
+                                    <% } %>
+                            </label>
                         </a>
 
                         <div class="dropdown-menu border border-danger border-3 rounded-4 text-center">
-                            <ul>
+                            <ul class="list-unstyled">
                                 <li>
-                                    <a href="#" class="fw-semibold">Mi Cuenta</a>
+                                    <a href="#" class="fw-semibold text-decoration-none">Mi Cuenta</a>
                                 </li>
 
                                 <li>
-                                    <a href="#" class="fw-semibold">Mis Pedidos</a>
+                                    <a href="#" class="fw-semibold text-decoration-none">Mis Pedidos</a>
                                 </li>
                             </ul>
 
                             <div class="dropdown-divider"></div>
-                            <a href="/">
+                            <a href="logout">
                                 <button type="button"
                                     class="btn border border-primary mb-2 border-3 rounded-3 fw-semibold text-danger">
                                     Cerrar Sesion
@@ -855,20 +863,6 @@
 
     <!--CDN Para Las llamar a las alertas de sweetalert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <% if(alert) { %>
-        <script>
-            Swal.fire({
-                title: '<%= alertTitle %>',
-                text: '<%= alertMessage %>',
-                icon: '<%= alertIcon %>',
-                showConfirmButton: <%= showConfirmButton %>,
-                timer: <%= timer %>,
-                timerProgressBar: true,
-                }).then(() => {
-                    window.location = '/<%=ruta%>'
-                })
-        </script>
-        <% } %>
 
 </body>
 
