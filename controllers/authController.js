@@ -1,7 +1,7 @@
 // TERCER VIDEO
 const jwt = require('jsonwebtoken'); // Para hacer la autenticacion
 const bcryptjs = require('bcryptjs'); // Modulo para Encriptar la clave
-const conexion = require('../database/db')
+const conexion = require('../database/db') // esto el clave para poder hacer las queries de la base de datos
 const { promisify } = require('util'); // promisify ya esta incluido en node por eso esta entre llaves, es para indicar que vamos a utilizar promesas, es una comunicacion asincrona (algo que se va a retornar)
 const { Console } = require('console');
 
@@ -98,12 +98,14 @@ exports.login = async (req, res) => {
                     })
                 } else {
                     // Este else es porque si estaria validado el inicio de sesion
-                    const id = results[0].id
+                    const id = results[0].id;
+                    const rol = results[0].Rol; // Capturamos el rol del usuario para saber si en admin o no
+                    //console.log('El rol es: ' + rol);
                     const name = results[0].Nombres; // Obtener el nombre desde la base de datos
                     const token = jwt.sign({ id: id }, process.env.JWT_SECRETO, {
                         expiresIn: process.env.JWT_TIEMPO_EXPIRA
                     })
-                    console.log("Token: " + token + " para el Usuario: " + user);
+                    //console.log("Token: " + token + " para el Usuario: " + user);
                     //console.log(results); //results atrapa el objeto ussuario que se esta buscando, toda la informacion saved en la base de datos
 
                     //Configuracion de las cookies
@@ -111,17 +113,32 @@ exports.login = async (req, res) => {
                         expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
                         httpOnly: true
                     }
-                    //Nombre con el que va aparecer la cookie en el navegador
-                    res.cookie('jwt', token, cookiesOptions)
-                    res.render('index', {
-                        alert: true,
-                        alertTitle: "Bienvenido a Ampack",
-                        alertMessage: `Hola ${name}`,
-                        alertIcon: 'success',
-                        showConfirmButton: true,
-                        timer: 800,
-                        ruta: 'login' // Este era mi error porque al dejar login en la pate re res.render, no dabe tiempo de que cargara isAuthenticated lo que hacia que user no estuviera definida, es decir cargamos ahora en mensaje en el index y que la ruta nos lleve al login
-                    })
+
+                    if (rol === "admin") {
+                        //Nombre con el que va aparecer la cookie en el navegador
+                        res.cookie('jwt', token, cookiesOptions)
+                        res.render('index', {
+                            alert: true,
+                            alertTitle: "Bienvenido a Ampack",
+                            alertMessage: `Hola ${name}`,
+                            alertIcon: 'success',
+                            showConfirmButton: true,
+                            timer: 800,
+                            ruta: 'loginAdmin' // Este era mi error porque al dejar login en la pate re res.render, no dabe tiempo de que cargara isAuthenticated lo que hacia que user no estuviera definida, es decir cargamos ahora en mensaje en el index y que la ruta nos lleve al login
+                        })
+                    } else {
+                        //Nombre con el que va aparecer la cookie en el navegador
+                        res.cookie('jwt', token, cookiesOptions)
+                        res.render('index', {
+                            alert: true,
+                            alertTitle: "Bienvenido a Ampack",
+                            alertMessage: `Hola ${name}`,
+                            alertIcon: 'success',
+                            showConfirmButton: true,
+                            timer: 800,
+                            ruta: 'login' // Este era mi error porque al dejar login en la pate re res.render, no dabe tiempo de que cargara isAuthenticated lo que hacia que user no estuviera definida, es decir cargamos ahora en mensaje en el index y que la ruta nos lleve al login
+                        })
+                    }
                 }
             })
         }
@@ -136,24 +153,24 @@ exports.isAuthenticated = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
             const decodificada = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRETO)
-            console.log('Decodificado:', decodificada);
-            console.log('Decodificado:', decodificada.id);
+            //console.log('Decodificado:', decodificada);
+            //console.log('Decodificado:', decodificada.id);
             // Convertir decodificada.id a un número entero
             const userId = parseInt(decodificada.id);
-            console.log('User:', userId);
+            //console.log('User:', userId);
 
             conexion.query('SELECT * FROM Usuario WHERE id = ?', [userId], (error, results) => {
                 if (!results || results.length === 0) {
-                    console.log('Esta entrando a este if')
+                    //console.log('Esta entrando a este if')
                     return next()
                 }
-                console.log('Results tiene: ' + results[0])
+                //console.log('Results tiene: ' + results[0])
                 req.user = results[0]
-                console.log(req.user.Nombres)
+                //console.log(req.user.Nombres)
                 return next()
             })
         } catch (error) {
-            console.log('El error es ' + error)
+            //console.log('El error es ' + error)
             return next()
         }
     } else {
@@ -164,7 +181,7 @@ exports.isAuthenticated = async (req, res, next) => {
 //Cerrar sesion
 exports.logout = (req, res) => {
     res.clearCookie('jwt');
-    console.log(res.clearCookie('jwt'))
+    //console.log(res.clearCookie('jwt'))
 
     // Evitar el almacenamiento en caché
     res.setHeader('Cache-Control', 'no-store, private, must-revalidate, max-age=0');

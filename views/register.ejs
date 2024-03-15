@@ -103,7 +103,8 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPhone" class="form-label">Numero Celular*</label>
-                <input type="text" class="form-control" name="phone" aria-describedby="textlHelp" required>
+                <input type="text" class="form-control" name="phone" aria-describedby="textlHelp"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Correo Electronico*</label>

@@ -1,36 +1,39 @@
-// Definimos las rutas para las visatas y para llamar al controlador.
-
+// Definimos las rutas para las vistas y para llamar al controlador.
 const express = require('express');
-const router = express.Router(); // asignamos el metodo de express.Router a una constante.
-//const conexion = require('../database/db'); // SEGUNDO VIDEO Requerimos a nuestro archivo db.js (los requerimientos de deben hacer en la parte superior) 
-const authController = require('../controllers/authController'); // Incluimos nuestro archivo controlador para establecer las rutas del metodo controller.
+const router = express.Router();
+const authController = require('../controllers/authController');
+const producController = require('../controllers/producController');
 
-// Rutas para las vistas (ventanas de la pagina)
+// Rutas para las vistas
 router.get('/', (req, res) => {
-    res.render('index', { alert: false })
-}); // Ruta para el inicio
+    res.render('index', { alert: false });
+});
 
 router.get('/index', authController.isAuthenticated, (req, res) => {
-    res.render('index', { alert: false })
-}); // Ruta para el inicio
+    res.render('index', { alert: false });
+});
 
 router.get('/register', (req, res) => {
-    res.render('register', { alert: false })
-}); // Ruta el registro
+    res.render('register', { alert: false });
+});
 
 router.get('/login', authController.isAuthenticated, (req, res) => {
-    res.render('login', { user: req.user })
-}); // Ruta cuando un usuario inicia session
+    res.render('login', { user: req.user });
+});
 
-// Rutas para el metodo del controller (TERCER VIDEO) (Utilizamos .post porque en nuestro form de la vista register tenemos el method="POST")
+// Ruta para renderizar la vista loginAdmin
+router.get('/loginAdmin', authController.isAuthenticated, producController.listP, (req, res) => {
+    res.render('loginAdmin', { user: req.user, items: req.items });
+});
+
+// Rutas para los métodos del controlador
 router.post('/register', authController.register);
-// (CUARTO VIDEO)
 router.post('/index', authController.login);
 router.get('/logout', authController.logout);
+router.post('/save', producController.product);
+router.post('/edit', producController.edit);
+router.post('/delete', producController.delete);
 
-module.exports = router // exportar Para que se pueda incluir el archivo router en otros archivos. 
 
-
-
-
+module.exports = router;
 

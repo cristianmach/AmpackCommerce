@@ -4,19 +4,20 @@ const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 
+// mire otro video asi que lo que tenga un = al final, es que es una estructura que se define por defecto, es decir, siempre sera igual.
 
-// 2. Aisgnamos los metodos de express a auna variable
+// 2. Aisgnamos los metodos de express a auna variable =
 const app = express();
 
-//5. Seteamos el motor de plantillas
+//5. Seteamos el motor de plantillas =
 app.set('view engine', 'ejs'); // ejs como html
 
 // 6. Seteamos lA CARPETA PUBLIC PARA ARCHIVOS ESTATICOS (imagenes, videos, ect.) OJO YA NO HAY QUE ESCRIBIR TODA LA RUTA PORQUE YA SABE QUE LOS ARCHIVOS ESTATICOS ESTAN EN LA CARPETA PUBLIC
 app.use(express.static('public'));
 
-// 7. configurar node para procsar, enviar data (vamos a trabajar con formularios (login/registro/etc))
+// 7. configurar node para procsar, enviar data (vamos a trabajar con formularios (login/registro/etc)) =
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); // vamos trabajar con json
+app.use(express.json()); // vamos trabajar con json =
 
 // 8. Seteamos la carpeta para las vriables de entorno 
 dotenv.config({ path: './env/.env' });
