@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
+const severless = require('serverless-http');
 
 // mire otro video asi que lo que tenga un = al final, es que es una estructura que se define por defecto, es decir, siempre sera igual.
 
