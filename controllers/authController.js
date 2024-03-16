@@ -8,6 +8,19 @@ const { Console } = require('console');
 // Metodo para Registrarnos (el .register es el nombre que nosotros le damos al metodo) (cada vez que utilizamos async, tambien utilizamos await)
 exports.register = async (req, res) => {
     try {
+        const results = await new Promise((resolve, reject) => {
+            conexion.query('SELECT * FROM Productos', (error, results) => {
+                if (error) {
+                    console.error('Error al obtener datos: ', error);
+                    reject('Error interno del servidor.');
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+
+        req.items = results;
+
         const name = req.body.name;
         const lName = req.body.lName;
         const phone = req.body.phone;
@@ -46,12 +59,13 @@ exports.register = async (req, res) => {
             conexion.query('INSERT INTO Usuario SET ?', { Nombres: name, Apellidos: lName, Telefono: phone, Correo: email, Contraseña: passHash, Direccion: address, Ciudad: city }, (err, results) => {
                 res.render('index', {
                     alert: true,
+                    items: req.items,
                     alertTitle: "Registro exitoso",
                     alertMessage: `Bienvenido ${name}, por favor inicia sesion`,
                     alertIcon: 'success',
                     showConfirmButton: true,
                     timer: false,
-                    ruta: 'index'
+                    ruta: ''
                 })
                 if (err) { console.log(err) }
             });
@@ -65,6 +79,20 @@ exports.register = async (req, res) => {
 //Creamos el metodo para hacer el login (CUARTO VIDEO)
 exports.login = async (req, res) => {
     try {
+
+        const results = await new Promise((resolve, reject) => {
+            conexion.query('SELECT * FROM Productos', (error, results) => {
+                if (error) {
+                    console.error('Error al obtener datos: ', error);
+                    reject('Error interno del servidor.');
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+
+        req.items = results;
+
         const user = req.body.email;
         const pass = req.body.pass;
         //console.log(user, pass); //Por buenas practicas revisamos que este bien el metodo.
@@ -74,13 +102,14 @@ exports.login = async (req, res) => {
             //console.log('No se han llenado los campos');
             // utilizamos sweet alert para generar la alerta
             res.render('index', {
-                alert: true,
+                alert: true, // Aqui se pueden definir varias variables y renderizar la vista, pero tiene que tener almenos las mismas varibles que enrouter, por ejemplo alert: true y items: req.item
+                items: req.items,
                 alertTitle: "Advertencia",
                 alertMessage: "Los campos de Usuario y Contraseña son obligatorios",
                 alertIcon: 'warning',
                 showConfirmButton: true,
                 timer: false,
-                ruta: 'index'
+                ruta: ''
             })
         } else {
             // Este else es para verificar que los datos sean correctos
@@ -89,12 +118,13 @@ exports.login = async (req, res) => {
 
                     res.render('index', {
                         alert: true,
+                        items: req.items,
                         alertTitle: "Datos Incorrectos",
                         alertMessage: "Contraseña o Correo incorrecto",
                         alertIcon: 'error',
                         showConfirmButton: true,
                         timer: false,
-                        ruta: 'index'
+                        ruta: ''
                     })
                 } else {
                     // Este else es porque si estaria validado el inicio de sesion
@@ -119,6 +149,7 @@ exports.login = async (req, res) => {
                         res.cookie('jwt', token, cookiesOptions)
                         res.render('index', {
                             alert: true,
+                            items: req.items,
                             alertTitle: "Bienvenido a Ampack",
                             alertMessage: `Hola ${name}`,
                             alertIcon: 'success',
@@ -131,6 +162,7 @@ exports.login = async (req, res) => {
                         res.cookie('jwt', token, cookiesOptions)
                         res.render('index', {
                             alert: true,
+                            items: req.items,
                             alertTitle: "Bienvenido a Ampack",
                             alertMessage: `Hola ${name}`,
                             alertIcon: 'success',
@@ -148,33 +180,33 @@ exports.login = async (req, res) => {
     }
 };
 
-// Metodon para saber si el usuario esta autenticado
+// Metodo para saber si el usuario esta autenticado
 exports.isAuthenticated = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
             const decodificada = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRETO)
-            //console.log('Decodificado:', decodificada);
-            //console.log('Decodificado:', decodificada.id);
-            // Convertir decodificada.id a un número entero
             const userId = parseInt(decodificada.id);
-            //console.log('User:', userId);
 
             conexion.query('SELECT * FROM Usuario WHERE id = ?', [userId], (error, results) => {
-                if (!results || results.length === 0) {
-                    //console.log('Esta entrando a este if')
-                    return next()
+                if (error) {
+                    console.error('Error al verificar la autenticación:', error);
+                    return res.redirect('/');
                 }
-                //console.log('Results tiene: ' + results[0])
-                req.user = results[0]
-                //console.log(req.user.Nombres)
-                return next()
-            })
+
+                if (!results || results.length === 0) {
+                    return res.redirect('/');
+                }
+
+                req.user = results[0];
+                //console.log('Esto es user: ' + req.user)
+                return next();
+            });
         } catch (error) {
-            //console.log('El error es ' + error)
-            return next()
+            console.error('Error al verificar la autenticación:', error);
+            return res.redirect('/');
         }
     } else {
-        res.redirect('/')
+        return res.redirect('/');
     }
 }
 

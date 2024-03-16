@@ -169,7 +169,6 @@
 
     <!--productos-->
     <main id="products">
-        <!--PRODDUCTOS-->
         <!--SELECTOR PRODUCTOS & ADMINISTRADOR DE PRODUCTOS-->
         <section class="container text-center align-items-center justify-contect-center" id="selector-categorias">
             <!--ADMINISTRADOR DE PRODUCTOS-->
@@ -213,22 +212,24 @@
                                             </thead>
 
                                             <tbody>
-                                                <% items.forEach((Productos)=> { %>
-                                                    <tr class="">
-                                                        <td>
-                                                            <%= Productos.Codigo %>
-                                                        </td>
-                                                        <td>
-                                                            <%= Productos.NombreProd %>
-                                                        </td>
-                                                        <td>
-                                                            <%= Productos.ValorProducto %>
-                                                        </td>
-                                                        <td>
-                                                            <%= Productos.cantidadVendida %>
-                                                        </td>
-                                                    </tr>
-                                                    <% }) %>
+                                                <% if (items) { %>
+                                                    <% items.forEach((Productos)=> { %>
+                                                        <tr class="">
+                                                            <td>
+                                                                <%= Productos.Codigo %>
+                                                            </td>
+                                                            <td>
+                                                                <%= Productos.NombreProd %>
+                                                            </td>
+                                                            <td>
+                                                                <%= Productos.ValorProducto %>
+                                                            </td>
+                                                            <td>
+                                                                <%= Productos.cantidadVendida %>
+                                                            </td>
+                                                        </tr>
+                                                        <% }) %>
+                                                            <% } %>
                                             </tbody>
                                         </table>
 
@@ -291,7 +292,7 @@
                                 </div>
                             </li>
 
-                            <!--Añadir o eliminar producto-->
+                            <!--Editar o eliminar producto-->
                             <li class="border-bottom pb-2 pt-2">
                                 <a class="btn fw-semibold text-decoration-none text-white" data-bs-toggle="collapse"
                                     href="#confProductos" role="button" aria-expanded="false"
@@ -312,138 +313,148 @@
                                             </thead>
 
                                             <tbody>
-                                                <% items.forEach((Productos)=> { %>
-                                                    <tr class="border-bottom">
+                                                <% if (items) { %>
+                                                    <% items.forEach((Productos)=> { %>
+                                                        <tr class="border-bottom">
 
-                                                        <td class="pb-1 pt-1">
-                                                            <%= Productos.Codigo %>
-                                                        </td>
+                                                            <td class="pb-1 pt-1">
+                                                                <%= Productos.Codigo %>
+                                                            </td>
 
-                                                        <td class="pb-1 pt-1">
-                                                            <%= Productos.NombreProd %>
-                                                        </td>
+                                                            <td class="pb-1 pt-1">
+                                                                <%= Productos.NombreProd %>
+                                                            </td>
 
-                                                        <td class="pb-1 pt-1">
-                                                            <%= Productos.ValorProducto %>
-                                                        </td>
+                                                            <td class="pb-1 pt-1">
+                                                                <%= Productos.ValorProducto %>
+                                                            </td>
 
-                                                        <td class="pb-1 pt-1 pe-1">
-                                                            <!--(data-codigo) adjunta info al botón de edición. Este atributo contiene el código del producto correspondiente al botón.-->
-                                                            <!--Al llamar a handleEditClick(nombre que le pusimos a la funcion) con this como argumento, pasas la referencia al propio botón al controlador de eventos.-->
-                                                            <a href="#edit<%= Productos.Codigo %>"
-                                                                class="btn text-white fw-bold edit-btn"
-                                                                data-bs-toggle="collapse" role="button"
-                                                                aria-expanded="false" aria-controls="collapseExample"
-                                                                id="button-blue">
-                                                                <i class="bi bi-tools"></i>
-                                                            </a>
-                                                        </td>
+                                                            <td class="pb-1 pt-1 pe-1">
+                                                                <!--(data-codigo) adjunta info al botón de edición. Este atributo contiene el código del producto correspondiente al botón.-->
+                                                                <!--Al llamar a handleEditClick(nombre que le pusimos a la funcion) con this como argumento, pasas la referencia al propio botón al controlador de eventos.-->
+                                                                <a href="#edit<%= Productos.Codigo %>"
+                                                                    class="btn text-white fw-bold edit-btn"
+                                                                    data-bs-toggle="collapse" role="button"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="collapseExample" id="button-blue">
+                                                                    <i class="bi bi-tools"></i>
+                                                                </a>
+                                                            </td>
 
-                                                        <td class="pb-1 pt-1">
-                                                            <a href="#remove<%= Productos.Codigo %>"
-                                                                class="btn text-white fw-bold" data-bs-toggle="collapse"
-                                                                role="button" aria-expanded="false"
-                                                                aria-controls="collapseExample" id="button-red"><i
-                                                                    class="bi bi-trash3-fill"></i></a>
-                                                        </td>
-                                                    </tr>
+                                                            <td class="pb-1 pt-1">
+                                                                <a href="#remove<%= Productos.Codigo %>"
+                                                                    class="btn text-white fw-bold"
+                                                                    data-bs-toggle="collapse" role="button"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="collapseExample" id="button-red"><i
+                                                                        class="bi bi-trash3-fill"></i></a>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <!--EDITAR DATO DE TABLA-->
-                                                        <div class="collapse pb-2" id="edit<%= Productos.Codigo %>">
+                                                        <tr>
+                                                            <!--EDITAR DATO DE TABLA-->
+                                                            <div class="collapse pb-2" id="edit<%= Productos.Codigo %>">
 
-                                                            <a class="btn fw-semibold text-decoration-none tittle-blue">
-                                                                EDITAR PRODUCTO
-                                                            </a>
+                                                                <a
+                                                                    class="btn fw-semibold text-decoration-none tittle-blue">
+                                                                    EDITAR PRODUCTO
+                                                                </a>
 
-                                                            <div class="card card-body container">
-                                                                <form class="justify-content-center align-items-center"
-                                                                    action="/edit" method="POST"
-                                                                    enctype="multipart/form-data">
+                                                                <div class="card card-body container">
+                                                                    <form
+                                                                        class="justify-content-center align-items-center"
+                                                                        action="/edit" method="POST"
+                                                                        enctype="multipart/form-data">
 
-                                                                    <div hidden>
-                                                                        <input class="form-control" id="cod" name="cod"
+                                                                        <div hidden>
+                                                                            <input class="form-control" id="cod"
+                                                                                name="cod"
+                                                                                value="<%= Productos.Codigo %>">
+
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+                                                                            <input type="text" class="form-control"
+                                                                                name="nameP"
+                                                                                aria-describedby="textlHelp"
+                                                                                placeholder="Nombre del Producto"
+                                                                                value="<%= Productos.NombreProd %>">
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+                                                                            <input type="text" class="form-control"
+                                                                                name="tipoP"
+                                                                                aria-describedby="textlHelp"
+                                                                                placeholder="Tipo de Material"
+                                                                                value="<%= Productos.TipoMaterial %>">
+                                                                        </div>
+
+                                                                        <div class="mb-3">
+                                                                            <input type="text" class="form-control"
+                                                                                name="cantidadDisponible"
+                                                                                aria-describedby="textlHelp"
+                                                                                placeholder="Cantidad Disponible"
+                                                                                value="<%= Productos.CantidadDisponible %>"
+                                                                                onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                                        </div>
+
+                                                                        <div class="input-group mb-3">
+                                                                            <span class="input-group-text">$</span>
+                                                                            <input type="text" class="form-control"
+                                                                                aria-label="Dollar amount (with dot and two decimal places)"
+                                                                                placeholder="Valor Unidad" name="valor"
+                                                                                value="<%= Productos.ValorProducto %>"
+                                                                                onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46'>
+                                                                        </div>
+
+                                                                        <div class="input-group">
+                                                                            <input class="form-control mb-3" type="file"
+                                                                                aria-describedby="inputGroupFileAddon04"
+                                                                                aria-label="Upload" name="img"
+                                                                                value="<%= Productos.img %>">
+                                                                        </div>
+
+                                                                        <button type="submit" class="btn text-white"
+                                                                            id="button-blue"
+                                                                            data-codigo="<%= Productos.Codigo %>"
+                                                                            onclick="handleEditClick(this)">GUARDAR</button>
+
+                                                                        <a href="/loginAdmin"
+                                                                            class="fw-bold text-decoration-none ps-3"
+                                                                            id="tittle">CANCELAR</a>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+
+                                                            <!--ELIMINAR DATO DE TABLA-->
+                                                            <div class="collapse pb-2"
+                                                                id="remove<%= Productos.Codigo %>">
+                                                                <a
+                                                                    class="btn fw-semibold text-decoration-none tittle-red">
+                                                                    ELIMINAR PRODUCTO
+                                                                </a>
+                                                                <div class="card card-body container">
+                                                                    <form
+                                                                        class="justify-content-center align-items-center"
+                                                                        action="/delete" method="POST">
+                                                                        <input type="hidden" name="codD"
                                                                             value="<%= Productos.Codigo %>">
-
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <input type="text" class="form-control"
-                                                                            name="nameP" aria-describedby="textlHelp"
-                                                                            placeholder="Nombre del Producto"
-                                                                            value="<%= Productos.NombreProd %>">
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <input type="text" class="form-control"
-                                                                            name="tipoP" aria-describedby="textlHelp"
-                                                                            placeholder="Tipo de Material"
-                                                                            value="<%= Productos.TipoMaterial %>">
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <input type="text" class="form-control"
-                                                                            name="cantidadDisponible"
-                                                                            aria-describedby="textlHelp"
-                                                                            placeholder="Cantidad Disponible"
-                                                                            value="<%= Productos.CantidadDisponible %>"
-                                                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                                                    </div>
-
-                                                                    <div class="input-group mb-3">
-                                                                        <span class="input-group-text">$</span>
-                                                                        <input type="text" class="form-control"
-                                                                            aria-label="Dollar amount (with dot and two decimal places)"
-                                                                            placeholder="Valor Unidad" name="valor"
-                                                                            value="<%= Productos.ValorProducto %>"
-                                                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46'>
-                                                                    </div>
-
-                                                                    <div class="input-group">
-                                                                        <input class="form-control mb-3" type="file"
-                                                                            aria-describedby="inputGroupFileAddon04"
-                                                                            aria-label="Upload" name="img"
-                                                                            value="<%= Productos.img %>">
-                                                                    </div>
-
-                                                                    <button type="submit" class="btn text-white"
-                                                                        id="button-blue"
-                                                                        data-codigo="<%= Productos.Codigo %>"
-                                                                        onclick="handleEditClick(this)">GUARDAR</button>
-
-                                                                    <a href="/loginAdmin"
-                                                                        class="fw-bold text-decoration-none ps-3"
-                                                                        id="tittle">CANCELAR</a>
-                                                                </form>
+                                                                        <div class="p-2">
+                                                                            <label for="">¿Estás seguro de eliminar el
+                                                                                producto <%= Productos.NombreProd %>
+                                                                                    ?</label>
+                                                                        </div>
+                                                                        <button type="submit" class="btn text-white"
+                                                                            id="button-red">ELIMINAR</button>
+                                                                        <a href="/loginAdmin"
+                                                                            class="fw-bold text-decoration-none pt-2"
+                                                                            id="tittle">CANCELAR</a>
+                                                                    </form>
+                                                                </div>
                                                             </div>
-                                                        </div>
-
-                                                        <!--ELIMINAR DATO DE TABLA-->
-                                                        <!--ELIMINAR DATO DE TABLA-->
-                                                        <div class="collapse pb-2" id="remove<%= Productos.Codigo %>">
-                                                            <a class="btn fw-semibold text-decoration-none tittle-red">
-                                                                ELIMINAR PRODUCTO
-                                                            </a>
-                                                            <div class="card card-body container">
-                                                                <form class="justify-content-center align-items-center"
-                                                                    action="/delete" method="POST">
-                                                                    <input type="hidden" name="codD"
-                                                                        value="<%= Productos.Codigo %>">
-                                                                    <div class="p-2">
-                                                                        <label for="">¿Estás seguro de eliminar el
-                                                                            producto <%= Productos.NombreProd %>
-                                                                                ?</label>
-                                                                    </div>
-                                                                    <button type="submit" class="btn text-white"
-                                                                        id="button-red">ELIMINAR</button>
-                                                                    <a href="/loginAdmin"
-                                                                        class="fw-bold text-decoration-none pt-2"
-                                                                        id="tittle">CANCELAR</a>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </tr>
-                                                    <% }) %>
+                                                        </tr>
+                                                        <% }) %>
+                                                            <% } %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -565,495 +576,62 @@
         <section class="container-fluid" id="categorias">
             <section class="text-center mb-5" id="productos">
                 <div class="row gap-4 gx-4 gx-lg-5  row-cols-2 row-cols-md-3 row-cols-xl-6 justify-content-center ">
-                    <div class="col">
-                        <div class="card h-100 shadow">
-                            <div class="justify-content-center align-items-center">
-                                <img class="card-img-top w-50" src="img/bolsa-removebg-preview.png"
-                                    alt="Bolsa Plastica">
+                    <% if (items) { %>
+                        <% items.forEach((Productos)=> { %>
+                            <div class="col">
+                                <div class="card h-100 shadow">
+                                    <div class="justify-content-center align-items-center">
+                                        <img class="card-img-top w-50" src="img/<%= Productos.img %>"
+                                            alt="Bolsa Plastica">
 
-                            </div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Bolsa Plastica
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$100</p></span>
                                     </div>
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
 
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p></span>
+                                            <div class="text-center rounded-3 tittle-main">
+                                                <h5 class="fs-5 text-white card-title">
+                                                    <%= Productos.NombreProd %>
+                                                </h5>
+                                            </div>
+
+                                            <div class="m-1">
+                                                <span> Precio Unidad:<p>
+                                                        <%= Productos.ValorProducto %>
+                                                    </p>
+                                                </span>
+                                            </div>
+
+                                            <div class="m-1">
+                                                <span>Tipo de Material: <p id="poli">
+                                                        <%= Productos.TipoMaterial %>
+                                                    </p></span>
+                                            </div>
+
+                                            <div>
+                                                <div class="input-group mb-3">
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        id="button-addon1"><i class="bi bi-plus"></i></button>
+                                                    <input type="text" class="form-control text-center" placeholder="0"
+                                                        aria-label="Recipient's username"
+                                                        aria-describedby="button-addon2"
+                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        id="button-addon2"><i class="bi bi-dash"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100 shadow ">
-                            <div class="justify-content-center align-items-center">
-                                <img class="card-img-top w-50" src="img/vinipel-removebg-preview.png" alt="Vinipel">
-                            </div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Vinipel
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$5.000</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p></span>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50 ">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a href="" class="btn btn-outline-success mt-auto">
+                                                ANADIR A LA BOLSA
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col ">
-                        <div class="card h-100 shadow">
-                            <div class="justify-content-center align-items-center"><img class="card-img-top w-50"
-                                    src="img/cinta_peligro-removebg-preview.png" alt="Cinta de Peligro"></div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Cinta
-                                        de Peligro
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$30.000</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50 ">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100 shadow">
-                            <div class="justify-content-center align-items-center">
-                                <img class="card-img-top w-50" src="img/cinta_transparente-removebg-preview.png"
-                                    alt="Cinta de Transparente">
-                            </div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Cinta
-                                        Transparente
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$10.000</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p></span>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50 ">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100 shadow">
-                            <div class="justify-content-center align-items-center">
-                                <img class="card-img-top w-50" src="img/bolsa-removebg-preview.png"
-                                    alt="Bolsa Plastica">
-
-                            </div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Bolsa Plastica
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$100</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p></span>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100 shadow ">
-                            <div class="justify-content-center align-items-center">
-                                <img class="card-img-top w-50" src="img/vinipel-removebg-preview.png" alt="Vinipel">
-                            </div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Vinipel
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$5.000</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p></span>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50 ">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col ">
-                        <div class="card h-100 shadow">
-                            <div class="justify-content-center align-items-center"><img class="card-img-top w-50"
-                                    src="img/cinta_peligro-removebg-preview.png" alt="Cinta de Peligro"></div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Cinta
-                                        de Peligro
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$30.000</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50 ">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100 shadow">
-                            <div class="justify-content-center align-items-center">
-                                <img class="card-img-top w-50" src="img/cinta_transparente-removebg-preview.png"
-                                    alt="Cinta de Transparente">
-                            </div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Cinta
-                                        Transparente
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$10.000</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p></span>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50 ">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col ">
-                        <div class="card h-100 shadow">
-                            <div class="justify-content-center align-items-center"><img class="card-img-top w-50"
-                                    src="img/cinta_peligro-removebg-preview.png" alt="Cinta de Peligro"></div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Cinta
-                                        de Peligro
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$30.000</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50 ">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100 shadow">
-                            <div class="justify-content-center align-items-center">
-                                <img class="card-img-top w-50" src="img/cinta_transparente-removebg-preview.png"
-                                    alt="Cinta de Transparente">
-                            </div>
-
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5
-                                        class="bg-primary fs-5 text-wrap bg-opacity-50 text-primary-emphasis card-title">
-                                        Cinta
-                                        Transparente
-                                    </h5>
-
-                                    <div class="m-1">
-                                        <span> Precio Unidad:<p>$10.000</p></span>
-                                    </div>
-
-                                    <div class="m-1">
-                                        <span>Tipo de Material: <p id="poli">
-                                                Polietileno</p></span>
-                                    </div>
-
-                                    <div class="text-center m-1">
-                                        <button class="p-o border bg-primary bg-opacity-50">
-                                            <i class="bi bi-plus"></i>
-                                        </button>
-
-                                        <input class=" w-50 text-center" placeholder="0"
-                                            aria-label="Sizing example input" type="text">
-
-                                        <button class="p-o border bg-primary bg-opacity-50 ">
-                                            <i class="bi bi-dash"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a href="" class="btn btn-outline-success mt-auto">
-                                        ANADIR A LA BOLSA
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                            <% }) %>
+                                <% } %>
                 </div>
             </section>
         </section>
@@ -1161,7 +739,6 @@
                 });
         }
     </script>
-
 
 </body>
 

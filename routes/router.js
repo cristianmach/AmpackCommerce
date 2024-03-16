@@ -5,20 +5,16 @@ const authController = require('../controllers/authController');
 const producController = require('../controllers/producController');
 
 // Rutas para las vistas
-router.get('/', (req, res) => {
-    res.render('index', { alert: false });
-});
-
-router.get('/index', authController.isAuthenticated, (req, res) => {
-    res.render('index', { alert: false });
+router.get('/', producController.listP, (req, res) => {
+    res.render('index', { alert: false, items: req.items });
 });
 
 router.get('/register', (req, res) => {
     res.render('register', { alert: false });
 });
 
-router.get('/login', authController.isAuthenticated, (req, res) => {
-    res.render('login', { user: req.user });
+router.get('/login', authController.isAuthenticated, producController.listP, (req, res) => {
+    res.render('login', { user: req.user, items: req.items });
 });
 
 // Ruta para renderizar la vista loginAdmin

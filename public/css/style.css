@@ -74,3 +74,15 @@ h1 {
 .tittle-blue {
     color: #00005C;
 }
+
+.tittle-main {
+    background-color: #4C67E0;
+}
+
+.btn-outline-primary {
+    background-color: #4C67E0;
+}
+
+#button-add {
+    background-color: #2749E1;
+}

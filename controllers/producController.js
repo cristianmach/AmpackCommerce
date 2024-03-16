@@ -21,6 +21,19 @@ const upload = multer({ storage: storage }).single('img');
 //Crear un nuevo producto en la base de datos:
 exports.product = async (req, res) => {
     try {
+        const results = await new Promise((resolve, reject) => {
+            conexion.query('SELECT * FROM Productos', (error, results) => {
+                if (error) {
+                    console.error('Error al obtener datos: ', error);
+                    reject('Error interno del servidor.');
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+
+        req.items = results;
+
         upload(req, res, async function (err) {
             if (err instanceof multer.MulterError) {
                 // Error de multer
@@ -55,6 +68,7 @@ exports.product = async (req, res) => {
                 // El producto ya existe
                 return res.render('index', {
                     alert: true,
+                    items: req.items,
                     alertTitle: "Tenemos un inconveniente",
                     alertMessage: "Este Producto ya existe",
                     alertIcon: 'error',
@@ -73,6 +87,7 @@ exports.product = async (req, res) => {
 
                 return res.render('index', {
                     alert: true,
+                    items: req.items,
                     alertTitle: "Registro exitoso",
                     alertMessage: `El producto ${nameP}, ha sido creado`,
                     alertIcon: 'success',
@@ -88,7 +103,7 @@ exports.product = async (req, res) => {
     }
 };
 
-// Mostrar lista de productos // OJOOO basicamente asyn es para funciones que realizan de manera syncronica, y si no se pone await puede que la funcion se ejecute sin un orden, porque no estaria esperando un proceso, await lo utilizamos normalmente con promesas
+// Conseguir la informacion de la tabla Mostrar lista de productos // OJOOO basicamente asyn es para funciones que realizan de manera syncronica, y si no se pone await puede que la funcion se ejecute sin un orden, porque no estaria esperando un proceso, await lo utilizamos normalmente con promesas
 exports.listP = async (req, res, next) => {
     try {
         const results = await new Promise((resolve, reject) => {
@@ -117,6 +132,20 @@ exports.listP = async (req, res, next) => {
 //editar
 exports.edit = async (req, res, next) => {
     try {
+
+        const results = await new Promise((resolve, reject) => {
+            conexion.query('SELECT * FROM Productos', (error, results) => {
+                if (error) {
+                    console.error('Error al obtener datos: ', error);
+                    reject('Error interno del servidor.');
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+
+        req.items = results;
+
         upload(req, res, async function (err) {
             if (err instanceof multer.MulterError) {
                 // Error de multer
@@ -149,6 +178,7 @@ exports.edit = async (req, res, next) => {
                             } else {
                                 return res.render('index', {
                                     alert: true,
+                                    items: req.items,
                                     alertTitle: "Registro exitoso",
                                     alertMessage: `El producto ${nameP}, ha sido actualizado`,
                                     alertIcon: 'success',
@@ -171,6 +201,7 @@ exports.edit = async (req, res, next) => {
                             } else {
                                 return res.render('index', {
                                     alert: true,
+                                    items: req.items,
                                     alertTitle: "Registro exitoso",
                                     alertMessage: `El producto ${nameP}, ha sido actualizado`,
                                     alertIcon: 'success',
@@ -193,6 +224,19 @@ exports.edit = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
     try {
+        const results = await new Promise((resolve, reject) => {
+            conexion.query('SELECT * FROM Productos', (error, results) => {
+                if (error) {
+                    console.error('Error al obtener datos: ', error);
+                    reject('Error interno del servidor.');
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+
+        req.items = results;
+
         const code = req.body.codD;
         console.log("Código del producto a eliminar:", code);
 
@@ -203,6 +247,7 @@ exports.delete = async (req, res, next) => {
                 } else {
                     return res.render('index', {
                         alert: true,
+                        items: req.items,
                         alertTitle: "Tabla Actualizada",
                         alertMessage: `El producto ha sido eliminado`,
                         alertIcon: 'success',
