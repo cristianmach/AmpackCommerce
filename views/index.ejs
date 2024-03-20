@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMPACK S.A.S</title>
+    <link rel="icon" href="img/logo_ampack.png" type="image/x-icon">
+    <!-- Corrige el atributo rel para especificar que es un ícono -->
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!--Bootstrap archivo descargado-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <!--barra de navegacion-->
+    <nav class="navbar navbar-expand-md navbar-light fixed-top row">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="col-md-2 ps-4 justify-content-center align-items-center">
+                <!-- se ajusta al 100% de la ventana, a lo ancho segubn la fila-->
+                <a class="navbar-brand" href="/"><img src="img/logo_ampack.png" alt="Logo Ampack S.A.S" width="150"></a>
+            </div>
+
+            <div class="collapse navbar-collapse col-md-7 align-items-center justify-content-between"
+                id="navbarSupportedContent">
+                <div class="row justify-content-center align-items-center text-center">
+                    <form class="d-flex ps-5" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn  btn-light align-items-center justify-contect-center rounded-circle"
+                            type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+
+                    <ul class="navbar-nav justify-content-center align-items-center text-white  ps-5 text-center">
+                        <!-- 1. justify-contect-center: ALINEA EJE PRINCIPAL 2. align-items-center: ALINEAR SECUNDARIO-->
+                        <li class="nav-item">
+                            <a class="nav-link active text-white fw-semibold" aria-current="page"
+                                href="#home">INICIO</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active text-white fw-semibold" aria-current="page"
+                                href="#products">PRODUCTOS</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active text-white fw-semibold" aria-current="page"
+                                href="#us">NOSOTROS</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active text-white fw-semibold" aria-current="page"
+                                href="#end">CONTACTOS</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--account-->
+            <div class="navbar-nav mb-2 collapse navbar-collapse col-md-3 align-items-center justify-content-center"
+                id="navbarSupportedContent">
+
+                <ul class="navbar-nav mb-md-0 justify-content-center align-items-center">
+                    <li class="dropdown justify-content-center align-items-center">
+                        <a class=" nav-link dropdown me-lg-2 mt-lg-1" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-person m-danger bg-white   rounded-5 p-2 me-1"></i>
+                        </a>
+                        <div class="dropdown-menu border border-danger border-3 rounded-4 text-center">
+                            <form class="px-3 py-3" method="post" id="formLogin" action="/index">
+                                <div class="mb-3">
+                                    <label for="user" class="form-label fw-semibold">Usuario</label>
+                                    <input type="email" class="form-control rounded-4" name="email"
+                                        placeholder="ejemplo@gmail.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label fw-semibold">Contraseña</label>
+                                    <input type="password" class="form-control rounded-4" name="pass">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check mb-4">
+                                        <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                                        <label class="form-check-label fw-semibold" for="dropdownCheck">
+                                            Recordar Datos
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mb-2 rounded-3 fw-semibold">Iniciar
+                                    Sesión</button>
+
+
+                                <a href="/register">
+                                    <button type="button"
+                                        class="btn border border-primary mb-2 border-3 rounded-3 fw-semibold text-danger">
+                                        Crear Cuenta
+                                    </button>
+                                </a>
+                            </form>
+
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="#">¿Olvidaste la Contraseña?</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <img src="img/bolsavacia.png" alt="Bolsa Vacia Compra" width="35">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!--inicio-->
+    <section class="hero align-items-stretch" id="home">
+        <div id="carouselExampleCaptions" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <!-- web-->
+                    <img src="img/reciclage-horizontal.png" class="d-none d-md-block w-100"
+                        alt="Descuentos Cintas de Peligro">
+                    <!--mobile-->
+                    <img src="img/reciclage-vertical.png" class="d-block w-100 d-md-none"
+                        alt="Descuentos Cintas de Peligro">
+                    <div class="carousel-caption d-block badge bg-primary bg-opacity-75 text-wrap">
+                        <h3 class="fw-bold">¡CUIDAMOS EL AMBIENTE!</h3>
+                        <p class="fw-bolder">La mayor parte de nuestros productos son hechos a base de materiales
+                            reciclables, con Ampack
+                            S.A.S cuidamos el medio ambiente.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <!-- web-->
+                    <img src="img/promo_cintas.png" class="d-none d-md-block w-100" alt="Descuentos Cintas de Peligro">
+                    <!--mobile-->
+                    <img src="img/promo_cintas_vertical.png" class="d-block w-100 d-md-none"
+                        alt="Descuentos Cintas de Peligro">
+                    <div class="carousel-caption d-block badge bg-black bg-opacity-75 text-wrap">
+                        <h3 class="fw-bold">10% DE DESCUENTO</h3>
+                        <p class="fw-bolder">Por cada 500 unidades en compras de Cinta de Peligro, te obsequiamos un
+                            bono
+                            de
+                            descuento, no
+                            acomulable, de 10% off en tu proxima compra. Aplicas T&C</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!--productos-->
+    <main id="products">
+        <!--SELECTOR PRODUCTOS-->
+        <section class="container text-center" id="selector-categorias">
+            <div class="accordion accordion-flush align-items-center justify-content-center" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <button class="accordion collapsed btn align-items-center justify-content-center" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                        aria-controls="flush-collapseOne">
+                        <p class="fs-5 fw-bold justify-content-center align-items-center badge" id="button-blue">
+                            Seleccionar Categoria <i class="bi bi-filter-circle"></i>
+                        </p>
+                    </button>
+
+                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-6 gap-4">
+
+                            <div class="accordion accordion-flush align-items-center justify-contect-center"
+                                id="accordionMaterials">
+                                <div class="accordion-item">
+                                    <button
+                                        class="accordion collapsed btn d-flex justify-content-center align-items-center p-0"
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#flush"
+                                        aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <p class="fw-semibold m-4 text-primary-emphasis d-flex text-decoration-none">
+                                            MATERIALES
+                                        </p>
+                                    </button>
+
+                                    <div id="flush" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionMaterials">
+                                        <div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-2 gap-4">
+                                            <div class="col d-flex justify-content-center align-items-center p-0">
+                                                <a href=""
+                                                    class="fw-medium text-primary-emphasis d-flex text-decoration-none">
+                                                    Polietileno
+                                                </a>
+                                            </div>
+
+                                            <div class="col d-flex justify-content-center align-items-center p-0">
+                                                <a href="/poli"
+                                                    class="fw-medium text-primary-emphasis d-flex text-decoration-none">
+                                                    Polipropileno
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col d-flex justify-content-center align-items-center p-0">
+                                <a href="" class=" fw-semibold m-2 text-primary-emphasis d-flex text-decoration-none">
+                                    PROMOCIONES
+                                </a>
+                            </div>
+
+                            <div class="col d-flex justify-content-center align-items-center p-0">
+                                <a href="" class="fw-semibold text-primary-emphasis m-2 d-flex text-decoration-none">
+                                    MAS VENDIDOS
+                                </a>
+                            </div>
+
+                            <div class="accordion accordion-flush align-items-center justify-contect-center"
+                                id="accordionMaterials">
+                                <div class="accordion-item">
+                                    <button
+                                        class="accordion collapsed btn d-flex justify-content-center align-items-center p-0"
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#precios"
+                                        aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <p class="fw-semibold m-4 text-primary-emphasis d-flex text-decoration-none">
+                                            PRECIO
+                                        </p>
+                                    </button>
+
+                                    <div id="precios" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionMaterials">
+                                        <div class="row gx-4 gx-lg-5 row-cols-md-3 row-cols-xl-2 gap-4">
+                                            <div class="col d-flex justify-content-center align-items-center p-0">
+                                                <a href=""
+                                                    class="fw-medium text-primary-emphasis d-flex text-decoration-none">
+                                                    Mayor
+                                                </a>
+                                            </div>
+
+                                            <div class="col d-flex justify-content-center align-items-center p-0">
+                                                <a href=""
+                                                    class="fw-medium text-primary-emphasis d-flex text-decoration-none">
+                                                    Menor
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col d-flex justify-content-center align-items-center p-0">
+                                <a href="" class="fw-semibold text-primary-emphasis m-2 d-flex text-decoration-none">
+                                    PERSONALIZABLES
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+        <!--PRODUCTOS-->
+        <section class="container-fluid" id="categorias">
+            <section class="text-center mb-5" id="productos">
+                <div class="row gap-4 gx-4 gx-lg-5  row-cols-2 row-cols-md-3 row-cols-xl-6 justify-content-center ">
+                    <% if (items) { %>
+                        <% items.forEach((Productos)=> { %>
+                            <div class="col">
+                                <div class="card h-100 shadow">
+                                    <div class="justify-content-center align-items-center">
+                                        <img class="card-img-top w-50" src="img/<%= Productos.img %>"
+                                            alt="Bolsa Plastica">
+
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+
+                                            <div class="text-center rounded-3 tittle-main">
+                                                <h5 class="fs-5 text-white card-title">
+                                                    <%= Productos.NombreProd %>
+                                                </h5>
+                                            </div>
+
+                                            <div class="m-1">
+                                                <span> Precio Unidad:<p>
+                                                        <%= Productos.ValorProducto %>
+                                                    </p>
+                                                </span>
+                                            </div>
+
+                                            <div class="m-1">
+                                                <span>Tipo de Material: <p id="poli">
+                                                        <%= Productos.TipoMaterial %>
+                                                    </p></span>
+                                            </div>
+
+                                            <div>
+                                                <div class="input-group mb-3">
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        id="button-addon1"><i class="bi bi-plus"></i></button>
+                                                    <input type="text" class="form-control text-center" placeholder="0"
+                                                        aria-label="Recipient's username"
+                                                        aria-describedby="button-addon2"
+                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                    <button class="btn btn-outline-primary" type="button"
+                                                        id="button-addon2"><i class="bi bi-dash"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a href="" class="btn btn-outline-success mt-auto">
+                                                ANADIR A LA BOLSA
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% } %>
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+
+    <!--nosotros-->
+    <section class="container-fluid" id="us">
+        <div class="row text-center justify-content-center align-items-center">
+
+            <div class="col-md-12 col-lg-4 text-center border-end text-white">
+                <h2 class="fs-4 fw-bolder">NOSOTROS</h2>
+                <img src="img/logo_ampack.png" class="w-75" alt="Logo AMPACK S.A.S">
+                <P>MAS DE 15 AÑOS EN CALIDAD, EXPERIENCIA, Y BUENOS PRECIOS.</P>
+            </div>
+
+            <div class="col-md-12 col-lg-8 p-5">
+
+                <span class="text-start">
+                    <h3 class="fs-5 fw-semibold" id="tittle">MISIÓN</h3>
+                    <P class="text-white">
+                        En Ampack S.A.S. nos comprometemos a proporcionar soluciones
+                        de alta calidad en la comercialización de productos plásticos, enfocándonos
+                        en la excelencia, la satisfacción del cliente y la eficiencia en cada etapa del
+                        proceso. Buscamos ser un socio confiable para nuestros clientes, ofreciendo
+                        productos de polietileno, polipropileno y materiales relacionados de primera
+                        categoría.
+                    </P>
+                </span>
+
+
+                <span class="text-start">
+                    <h3 class="fs-5 fw-semibold" id="tittle">VISIÓN</h3>
+                    <p class="text-white">
+                        Nos esforzamos por consolidarnos como un referente en la industria plástica, manteniendo un
+                        enfoque
+                        en la excelencia en productos y servicios. Buscamos ser reconocidos por nuestra dedicación a
+                        la
+                        calidad, la confiabilidad y el compromiso continuo con la satisfacción del cliente en el
+                        mercado
+                        de
+                        productos plásticos.
+                    </p>
+                </span>
+            </div>
+        </div>
+    </section>
+
+
+    <!--footer-->
+    <footer class="container-fluid d-flex text-white justify-content-between align-items-center pv-3 mt-2 border-top"
+        id="end">
+
+        <div class="col-md-6 ms-2 mb-1 d-flex align-items-center fs-6">
+            <a href="/" class="me-3 mb-md-0 text-white text-decoration-none lh-1">Términos y condiciones</a>
+            <a href="/" class="me-3 mb-md-0 text-white text-decoration-none lh-1">Trabaja con Nosotros</a>
+            <a href="/" class="me-3 mb-md-0 text-white text-decoration-none lh-1">Accesibilidad</a>
+            <a href="/" class="me-3 mb-md-0 text-white text-decoration-none lh-1">Ayuda/PQR</a>
+        </div>
+
+        <ul class="nav col-md-2 justify-content-center align-items-center list-unstyled d-flex m-2">
+            <li class="ms-3"><a href=""><i class="bi bi-instagram bg-white rounded-5 p-1"></i></a></li>
+            <li class="ms-3"><a href=""><i class="bi bi-facebook bg-white rounded-5 p-1"></i></a></li>
+            <li class="ms-3"><a href=""><i class="bi bi-envelope bg-white rounded-5 p-1"></i></a></li>
+            <li class="ms-3"><a href=""><i class="bi bi-telephone bg-white rounded-5 p-1"></i></a></li>
+
+        </ul>
+
+        <span class="mb-3 me-2 text-end mb-md-0">&copy; 2024 Ampack S.A.S</span>
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <!--CDN Para Las llamar a las alertas de sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(alert) { %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>',
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer: <%= timer %>,
+                timerProgressBar: true,
+                }).then(() => {
+                    window.location = '/<%=ruta%>'
+                })
+        </script>
+        <% } %>
+
+
+</body>
+
+</html>
