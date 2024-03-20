@@ -24,7 +24,7 @@
 <body>
 
     <!--barra de navegacion-->
-    <nav class="navbar navbar-expand-md navbar-light fixed-top row">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top row">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -32,13 +32,13 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="col-md-2 ps-4 justify-content-center align-items-center">
+            <div class=" collapse navbar-collapse ps-lg-4 justify-content-center align-items-center">
                 <!-- se ajusta al 100% de la ventana, a lo ancho segubn la fila-->
                 <a class="navbar-brand" href="/login"><img src="img/logo_ampack-removebg-preview.png"
                         alt="Logo Ampack S.A.S" width="150"></a>
             </div>
 
-            <div class="collapse navbar-collapse col-md-7 align-items-center justify-content-between"
+            <div class="collapse navbar-collapse align-items-center justify-content-between"
                 id="navbarSupportedContent">
                 <div class="row justify-content-center align-items-center text-center">
                     <form class="d-flex ps-5" role="search">
@@ -75,7 +75,7 @@
             </div>
 
             <!--account con inicio de sesion-->
-            <div class="navbar-nav mb-2 collapse navbar-collapse col-md-3 align-items-center justify-content-center"
+            <div class="mb-2 collapse navbar-collapse align-items-center justify-content-center"
                 id="navbarSupportedContent">
 
                 <ul class="navbar-nav mb-md-0 justify-content-center align-items-center">
@@ -96,11 +96,9 @@
                         <div class="dropdown-menu border border-danger border-3 rounded-4 text-center">
                             <ul class="list-unstyled">
                                 <li>
-                                    <a href="#" class="fw-semibold text-decoration-none">Mi Cuenta</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="fw-semibold text-decoration-none">Mis Pedidos</a>
+                                    <a href="#" class="fw-semibold text-decoration-none" data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight "
+                                        aria-current="page">Mi Cuenta</a>
                                 </li>
                             </ul>
 
@@ -115,9 +113,10 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
-                            <img src="img/bolsavacia.jpg-removebg-preview.png" alt="Bolsa Vacia Compra" width="35">
-                        </a>
+                        <a href="#" class="fw-semibold text-decoration-none nav-link active" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight " aria-current="page"><img
+                                src="img/bolsavacia.jpg-removebg-preview.png" alt="Bolsa Vacia Compra" width="35"></a>
+
                     </li>
                 </ul>
             </div>
@@ -180,8 +179,74 @@
 
     <!--productos-->
     <main id="products">
-        <!--SELECTOR PRODUCTOS-->
+        <!--SELECTOR PRODUCTOS & ADMINISTRADOr DE COMPRAS-->
         <section class="container text-center" id="selector-categorias">
+
+            <!--ADMINISTRADOr DE COMPRAS-->
+            <div class="offcanvas offcanvas-end shadow" tabindex="-1" id="offcanvasRight"
+                aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header justify-content-between align-items-center border-bottom">
+                    <h5 class="offcanvas-title fw-bold text-white" id="offcanvasRightLabel">MI CUENTA</h5>
+                    <button type="button" class="btn fw-bold bg-white rounded-5 p-1" data-bs-dismiss="offcanvas"
+                        aria-label="Close"><i class="bi bi-x-circle"></i></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="fw-semibold list-unstyled">
+
+                        <!--Lista de productos-->
+                        <li class="border-bottom pb-2 pt-2">
+                            <a class="btn fw-semibold text-decoration-none text-white" data-bs-toggle="collapse"
+                                href="#misCompras" role="button" aria-expanded="false"
+                                aria-controls="collapseExample">Mis Compras
+                            </a>
+
+                            <!--No tiene el metodo post, por eso se llama de una manera distinta-->
+                            <div class=" collapse" id="misCompras">
+                                <div class="card card-body container">
+                                    <table>
+                                        <thead>
+                                            <!--Encabezados de la tabla-->
+                                            <tr class="text-white bg-azulOscuro">
+                                                <th scope="col">CODIGO</th>
+                                                <th scope="col">NOMBRE</th>
+                                                <th scope="col">PRECIO $</th>
+                                                <th scope="col">N° VENTAS</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <% if (items) { %>
+                                                <% items.forEach((Productos)=> { %>
+                                                    <tr class="">
+                                                        <td>
+                                                            <%= Productos.Codigo %>
+                                                        </td>
+                                                        <td>
+                                                            <%= Productos.NombreProd %>
+                                                        </td>
+                                                        <td>
+                                                            <%= Productos.ValorProducto %>
+                                                        </td>
+                                                        <td>
+                                                            <%= Productos.cantidadVendida %>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+                                                        <% } %>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="offcanvas-header justify-content-center align-items-center border-top">
+                    <span class="text-white fw-bold ">&copy; 2024 Ampack S.A.S</span>
+                </div>
+            </div>
+
+            <!--SELECTOR PRODUCTOS-->
             <div class="accordion accordion-flush align-items-center justify-content-center" id="accordionFlushExample">
                 <div class="accordion-item">
                     <button class="accordion collapsed btn align-items-center justify-content-center" type="button"
@@ -283,8 +348,6 @@
                     </div>
                 </div>
             </div>
-
-
         </section>
 
         <!--PRODUCTOS-->
